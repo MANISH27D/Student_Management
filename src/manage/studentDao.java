@@ -1,9 +1,6 @@
 package manage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 public class studentDao {
@@ -55,29 +52,28 @@ public class studentDao {
     }
 
 
-    public static boolean dispalyStudentTODB(student_Manage st) {
+    public static boolean dispalyStudentTODB() {
         boolean f = false;
         try {
             Connection con = connection_Provider.createConnection();
-            String q = "select * from student_data where id=?";
+            String q = "select * from student_data";
             //prepared statement
-            PreparedStatement stmt=con.prepareStatement(q);
-            //set the values from parameter
-            stmt.setInt(0, st.getStudent_id());
-            ResultSet set = stmt.executeQuery();
-            f=true;
-            while(set.next())
-            {
-                int id = set.getInt(1);
-                String name = set.getString(2);
-                int class_1 = set.getInt(3);
-                int age = set.getInt(4);
+            Statement stmt = con.createStatement();
 
-                System.out.println("student_id : "+ id);
-                System.out.println("student_name"+ name);
-                System.out.println("student_class : "+class_1 );
-                System.out.println("student_age : "+ age);
+            ResultSet rs =stmt.executeQuery(q);
+            while(rs.next()){
+                int student_id=rs.getInt("id");
+                String student_name=rs.getString("name");
+                String student_Class=rs.getString("class");
+                String student_age=rs.getString("age");
+
+                System.out.println("Student_ID : "+student_id);
+                System.out.println("Student_Name : "+student_name);
+                System.out.println("Student_Class : "+student_Class);
+                System.out.println("student_Age : "+student_age);
+                System.out.println("*****Following row is displayed successfully*****");
             }
+            f=true;
 
 
 

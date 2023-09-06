@@ -57,12 +57,17 @@ public class Main {
 
             } else if (c == 3) {
                 //display student
-                System.out.println("Please enter student id to be displayed : ");
-                int student_id = Integer.parseInt(br.readLine());
+                System.out.println("Showing data present in our database... ");
 
                 //create student object to store student
-                student_Manage st = new student_Manage(student_id);
-                boolean ans = studentDao.dispalyStudentTODB(st);
+
+                boolean ans = studentDao.dispalyStudentTODB();
+                if (ans) {
+                    System.out.println("Complete student datbase is displayed sucessfully....");
+                } else {
+                    System.out.println("something went wrong. Please try again..");
+                }
+
 
 
 
